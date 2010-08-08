@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using COMExplorer.ViewModel;
 
 namespace COMExplorer
 {
@@ -22,6 +23,12 @@ namespace COMExplorer
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = new TypeLibListViewModel();
         }
     }
 }
