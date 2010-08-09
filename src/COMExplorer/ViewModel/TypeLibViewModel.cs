@@ -15,6 +15,7 @@ namespace COMExplorer.ViewModel
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Path { get; set; }
         public string HelpFilePath { get; set; }
 
         public TypeLibViewModel(ITypeLib typeLib)
@@ -32,9 +33,11 @@ namespace COMExplorer.ViewModel
                 out helpContext,
                 out helpFile);
 
+            Path = COMUtil.GetTypeLibPath(typeLib);
             Name = name;
             Description = docString;
-            HelpFilePath = helpFile;
+            // Remove the null char
+            HelpFilePath = helpFile == null ? string.Empty : helpFile.Substring(0, helpFile.Length - 1);    
         }
     }
 }

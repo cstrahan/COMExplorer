@@ -1,25 +1,43 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
+using System.Windows.Data;
 using System.Windows.Threading;
 using Microsoft.Win32;
 
 namespace COMExplorer.ViewModel
 {
-    public class TypeLibListViewModel
+    public class TypeLibListViewModel : ViewModelBase
     {
-        public ObservableCollection<TypeLibViewModel> TypeLibs { get; set; }
+        private ObservableCollection<TypeLibViewModel> _typeLibs;
+        public ObservableCollection<TypeLibViewModel> TypeLibs
+        {
+            get
+            {
+                return _typeLibs;
+            }
+            set
+            {
+                _typeLibs = value;
+                RaiseChanged(() => TypeLibs);
+            }
+        }
+        private Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
 
         public TypeLibListViewModel()
         {
-            TypeLibs = new ObservableCollection<TypeLibViewModel>();
-            var vms = GetTypeLibs().Select(lib => new TypeLibViewModel(lib));
-            //vms.AsParallel().ForAll(vm => Dispatcher.CurrentDispatcher.BeginInvoke((Action)(() => TypeLibs.Add(vm))));
-            vms.AsParallel().ForAll(vm => TypeLibs.Add(vm));
+            var thread = new Thread(() =>
+                                        {
+                                            var viewModels = new ObservableCollection<TypeLibViewModel>(GetTypeLibs().AsParallel().Select(lib => new TypeLibViewModel(lib)));
+                                            _dispatcher.BeginInvoke((Action)(() => TypeLibs = viewModels));
+                                        });
+            thread.Start();
         }
 
         IEnumerable<ITypeLib> GetTypeLibs()
@@ -57,7 +75,7 @@ namespace COMExplorer.ViewModel
                         ITypeLib typeLib = null;
                         try
                         {
-                             typeLib = COMUtil.LoadRegTypeLib(ref guid, major, minor, lcid);
+                            typeLib = COMUtil.LoadRegTypeLib(ref guid, major, minor, lcid);
                         }
                         catch (COMException)
                         {

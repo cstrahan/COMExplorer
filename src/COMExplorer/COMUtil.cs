@@ -84,9 +84,12 @@ namespace COMExplorer
 
         public static string GetTypeLibPath(Guid g, int major, int minor, int lcid)
         {
-            return RegistryKey
+            string path = null;
+            var key = RegistryKey
                 .OpenBaseKey(RegistryHive.ClassesRoot, RegistryView.Default)
-                .OpenSubKey(@"TypeLib\{" + g + @"}\" + major + "." + minor + @"\" + lcid + @"\win32").GetValue("").ToString();
+                .OpenSubKey(@"TypeLib\{" + g + @"}\" + major + "." + minor + @"\" + lcid + @"\win32");
+            if (key != null) path = (string)key.GetValue("");
+            return path;
         }
     }
 }

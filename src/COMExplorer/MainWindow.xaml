@@ -1,8 +1,20 @@
 ﻿<Window x:Class="COMExplorer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="COM Explorer" Height="350" Width="525">
+    <Window.Resources>
+    </Window.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="True" />
+        <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
+                <DataGridTextColumn Header="CLSID" Binding="{Binding Path=CLSID}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Major Version" Binding="{Binding Path=MajorVersion}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Minor Version" Binding="{Binding Path=MinorVersion}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Path" Binding="{Binding Path=Path}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Help File" Binding="{Binding Path=HelpFilePath}" IsReadOnly="True" />                
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
