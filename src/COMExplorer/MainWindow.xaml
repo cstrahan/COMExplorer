@@ -5,16 +5,33 @@
     <Window.Resources>
     </Window.Resources>
     <Grid>
-        <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
-                <DataGridTextColumn Header="CLSID" Binding="{Binding Path=CLSID}" IsReadOnly="True" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Type Libraries" Grid.Row="0" >
+            <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedTypeLib}" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
+                    <!--<DataGridTextColumn Header="CLSID" Binding="{Binding Path=CLSID}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Major Version" Binding="{Binding Path=MajorVersion}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Minor Version" Binding="{Binding Path=MinorVersion}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Path" Binding="{Binding Path=Path}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Help File" Binding="{Binding Path=HelpFilePath}" IsReadOnly="True" />                
-            </DataGrid.Columns>
-        </DataGrid>
+                <DataGridTextColumn Header="Help File" Binding="{Binding Path=HelpFilePath}" IsReadOnly="True" />-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        <GroupBox Header="Types" Grid.Row="0" Grid.Column="1">
+            <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.Types}" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind}" IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
     </Grid>
 </Window>

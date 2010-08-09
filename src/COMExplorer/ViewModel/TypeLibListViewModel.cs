@@ -28,6 +28,18 @@ namespace COMExplorer.ViewModel
                 RaiseChanged(() => TypeLibs);
             }
         }
+
+        private TypeLibViewModel _selectedTypeLib;
+        public TypeLibViewModel SelectedTypeLib
+        {
+            get { return _selectedTypeLib; }
+            set
+            {
+                _selectedTypeLib = value;
+                RaiseChanged(() => SelectedTypeLib);
+            }
+        }
+
         private Dispatcher _dispatcher = Dispatcher.CurrentDispatcher;
 
         public TypeLibListViewModel()
@@ -40,6 +52,16 @@ namespace COMExplorer.ViewModel
                                                 .ThenBy(vm => vm.Name));
                                             _dispatcher.BeginInvoke((Action)(() => TypeLibs = viewModels));
                                         });
+
+            //var thread = new Thread(() =>
+            //{
+            //    var viewModels = new ObservableCollection<TypeLibViewModel>(
+            //        GetTypeLibs().Select(lib => new TypeLibViewModel(lib))
+            //        .OrderBy(vm => vm.Description)
+            //        .ThenBy(vm => vm.Name));
+            //    _dispatcher.BeginInvoke((Action)(() => TypeLibs = viewModels));
+            //});
+
             thread.Start();
         }
 
