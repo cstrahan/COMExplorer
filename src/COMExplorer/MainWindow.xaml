@@ -1,12 +1,12 @@
 ﻿<Window x:Class="COMExplorer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="COM Explorer" Height="600" Width="700">
+        Title="COM Explorer" Height="650" Width="700">
     <Window.Resources>
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="3.5*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -49,20 +49,21 @@
                         <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.HelpFilePath, Mode=OneWay}" Grid.Row="5" Grid.Column="1"/>
                     </Grid>
                 </Expander>
-                <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedTypeLib}" DockPanel.Dock="Top">
+                <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedTypeLib}" DockPanel.Dock="Top"
+                          AlternationCount="2" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Description" Binding="{Binding Path=Description}" IsReadOnly="True" />
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
-
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
         </GroupBox>
 
         <GridSplitter Height="10" Grid.Row="1" HorizontalAlignment="Stretch"/>
-        
+
         <GroupBox Header="Types" Grid.Row="2">
-            <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.Types}" AutoGenerateColumns="False" >
+            <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.Types}" AutoGenerateColumns="False" 
+                      AlternationCount="2" AlternatingRowBackground="AliceBlue">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind}" IsReadOnly="True" />

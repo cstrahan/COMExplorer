@@ -1,0 +1,9 @@
+COM Explorer
+------------
+
+A utility for veiwing installed COM Type Libraries.
+
+
+The following are some articles I found helpful:
+http://spec.winprog.org/typeinf2/
+http://www.codeguru.com/cpp/com-tech/activex/misc/article.php/c2569
