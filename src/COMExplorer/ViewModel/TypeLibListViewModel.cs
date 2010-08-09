@@ -34,7 +34,10 @@ namespace COMExplorer.ViewModel
         {
             var thread = new Thread(() =>
                                         {
-                                            var viewModels = new ObservableCollection<TypeLibViewModel>(GetTypeLibs().AsParallel().Select(lib => new TypeLibViewModel(lib)));
+                                            var viewModels = new ObservableCollection<TypeLibViewModel>(
+                                                GetTypeLibs().AsParallel().Select(lib => new TypeLibViewModel(lib))
+                                                .OrderBy(vm => vm.Description)
+                                                .ThenBy(vm => vm.Name));
                                             _dispatcher.BeginInvoke((Action)(() => TypeLibs = viewModels));
                                         });
             thread.Start();
