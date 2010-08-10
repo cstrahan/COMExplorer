@@ -6,49 +6,25 @@
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="3.5*" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <GroupBox Header="Type Libraries" Grid.Row="0" >
-            <DockPanel LastChildFill="True">
-                <Expander Header="Type Lib Details" DockPanel.Dock="Bottom">
-                    <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
 
-                        <Label Content="Description:" Margin="0,0,10,0" Grid.Row="0" Grid.Column="0"/>
-                        <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Description, Mode=OneWay}" Grid.Row="0" Grid.Column="1"/>
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                        <Label Content="Name:" Margin="0,0,10,0" Grid.Row="1" Grid.Column="0"/>
-                        <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Name, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
-
-                        <Label Content="CLSID:" Margin="0,0,10,0" Grid.Row="2" Grid.Column="0"/>
-                        <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.CLSID, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
-
-                        <Label Content="Version:" Margin="0,0,10,0" Grid.Row="3" Grid.Column="0"/>
-                        <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Version, Mode=OneWay}" Grid.Row="3" Grid.Column="1"/>
-
-                        <Label Content="Path:" Margin="0,0,10,0" Grid.Row="4" Grid.Column="0"/>
-                        <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Path, Mode=OneWay}" Grid.Row="4" Grid.Column="1"/>
-
-                        <Label Content="Help File:" Margin="0,0,10,0" Grid.Row="5" Grid.Column="0" />
-                        <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.HelpFilePath, Mode=OneWay}" Grid.Row="5" Grid.Column="1"/>
-                    </Grid>
-                </Expander>
+            <GroupBox Header="Type Libraries" Grid.Row="0" >
                 <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedTypeLib}" DockPanel.Dock="Top"
                           AlternationCount="2" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
@@ -56,19 +32,56 @@
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
                     </DataGrid.Columns>
                 </DataGrid>
-            </DockPanel>
-        </GroupBox>
+            </GroupBox>
 
-        <GridSplitter Height="10" Grid.Row="1" HorizontalAlignment="Stretch"/>
+            <GridSplitter Height="10" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch"/>
 
-        <GroupBox Header="Types" Grid.Row="2">
-            <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.Types}" AutoGenerateColumns="False" 
+            <GroupBox Header="Types" Grid.Row="2">
+                <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.Types}" AutoGenerateColumns="False" 
                       AlternationCount="2" AlternatingRowBackground="AliceBlue">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind}" IsReadOnly="True" />
-                </DataGrid.Columns>
-            </DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Kind" Binding="{Binding Path=Kind}" IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </Grid>
+
+        <GridSplitter Grid.Column="1" Width="10" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
+
+        <GroupBox Header="Type Library Details" Grid.Column="2">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Content="Description:" Margin="0,0,10,0" Grid.Row="0" Grid.Column="0"/>
+                <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Description, Mode=OneWay}" Grid.Row="0" Grid.Column="1"/>
+
+                <Label Content="Name:" Margin="0,0,10,0" Grid.Row="1" Grid.Column="0"/>
+                <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Name, Mode=OneWay}" Grid.Row="1" Grid.Column="1"/>
+
+                <Label Content="CLSID:" Margin="0,0,10,0" Grid.Row="2" Grid.Column="0"/>
+                <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.CLSID, Mode=OneWay}" Grid.Row="2" Grid.Column="1"/>
+
+                <Label Content="Version:" Margin="0,0,10,0" Grid.Row="3" Grid.Column="0"/>
+                <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Version, Mode=OneWay}" Grid.Row="3" Grid.Column="1"/>
+
+                <Label Content="Path:" Margin="0,0,10,0" Grid.Row="4" Grid.Column="0"/>
+                <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.Path, Mode=OneWay}" Grid.Row="4" Grid.Column="1"/>
+
+                <Label Content="Help File:" Margin="0,0,10,0" Grid.Row="5" Grid.Column="0" />
+                <TextBox IsReadOnly="True" Text="{Binding Path=SelectedTypeLib.HelpFilePath, Mode=OneWay}" Grid.Row="5" Grid.Column="1"/>
+            </Grid>
         </GroupBox>
     </Grid>
 </Window>
