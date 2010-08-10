@@ -24,6 +24,7 @@ namespace COMExplorer.ViewModel
             CLSID = attr.guid.ToString();
             MajorVersion = attr.wMajorVerNum;
             MinorVersion = attr.wMinorVerNum;
+            LCID = attr.lcid;
             //Name = Marshal.GetTypeLibName(typeLib);
             string name, docString, helpFile;
             int helpContext;
@@ -38,11 +39,22 @@ namespace COMExplorer.ViewModel
             Description = docString;
             // Remove the null char
             HelpFilePath = helpFile == null ? string.Empty : helpFile.Substring(0, helpFile.Length - 1);
+
+            string asmName, asmCodeBase;
+            var converter = new TypeLibConverter();
+            converter.GetPrimaryInteropAssembly(
+                attr.guid, MajorVersion, MinorVersion, LCID, out asmName, out asmCodeBase);
+
+            PIAName = asmName;
+            PIACodeBase = asmCodeBase;
         }
 
         public string CLSID { get; set; }
         public int MajorVersion { get; set; }
         public int MinorVersion { get; set; }
+        public int LCID { get; set; }
+        public string PIACodeBase { get; set; }
+        public string PIAName { get; set; }
 
         public string Version
         {
@@ -61,6 +73,17 @@ namespace COMExplorer.ViewModel
             {
                 _isLoadingTypes = value;
                 RaiseChanged(() => IsLoadingTypes);
+            }
+        }
+
+        private TypeViewModel _selectedType;
+        public TypeViewModel SelectedType
+        {
+            get { return _selectedType; }
+            set
+            {
+                _selectedType = value;
+                RaiseChanged(() => SelectedType);
             }
         }
 
