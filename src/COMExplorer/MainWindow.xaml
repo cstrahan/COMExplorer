@@ -4,7 +4,7 @@
         Title="COM Explorer" Height="650" Width="700">
     <Window.Resources>
     </Window.Resources>
-    <Grid Margin="10">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <GroupBox Header="Type Libraries" Grid.Row="0" >
+            <GroupBox Header="Type Libraries" Grid.Row="0" Margin="5" >
                 <DataGrid ItemsSource="{Binding Path=TypeLibs}" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedTypeLib}" DockPanel.Dock="Top"
                           AlternationCount="2" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
@@ -36,7 +36,7 @@
 
             <GridSplitter Height="10" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch"/>
 
-            <GroupBox Header="Types" Grid.Row="2">
+            <GroupBox Header="Types" Grid.Row="2" Margin="5">
                 <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.Types}" SelectedItem="{Binding Path=SelectedTypeLib.SelectedType}" AutoGenerateColumns="False" 
                       AlternationCount="2" AlternatingRowBackground="AliceBlue">
                     <DataGrid.Columns>
@@ -55,7 +55,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <GroupBox Header="Type Library Details" >
+            <GroupBox Header="Type Library Details" Margin="5">
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -102,7 +102,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Type Members" Grid.Row="1">
+            <GroupBox Header="Type Members" Grid.Row="1" Margin="5">
                 <DataGrid ItemsSource="{Binding Path=SelectedTypeLib.SelectedType.Members}" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Path=Name}" IsReadOnly="True" />
